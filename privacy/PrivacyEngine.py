@@ -38,7 +38,7 @@ class PrivacyEngine:
             self.eps_cache = dict()
 
     def __del__(self):
-        with open('Wx.pkl', 'wb') as output:
+        with open ('Wx.pkl', 'wb') as output:
             pickle.dump(self.Wx_cache_W, output, pickle.HIGHEST_PROTOCOL)
             pickle.dump(self.Wx_cache_x, output, pickle.HIGHEST_PROTOCOL)
             pickle.dump(self.Wx_cache_N, output, pickle.HIGHEST_PROTOCOL)

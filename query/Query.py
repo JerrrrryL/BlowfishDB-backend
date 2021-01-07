@@ -76,7 +76,7 @@ class Query:
 
     # set the table and db connection
     def set_data_and_size(self, ds, s):
-        if ds == 'census':
+        if ds == 'census' and not self.table_name:
             self.table_name = 'census.income'
         elif ds == 'location':
             self.table_name = 'location.trip'
@@ -109,7 +109,7 @@ class Query:
     # collect the ids for each condition to build histogram
     def get_cond_ids(self):
         counter = 0
-        table_name = self.table_name + str(self.data_size)
+        table_name = self.table_name#+ str(self.data_size)
 
         for cond in self.cond_list:
             # initialize an object to hold the ids and its belonging queries
@@ -132,7 +132,7 @@ class Query:
         self.db.close_conn()
 
     def get_cond_counts(self):
-        table_name = self.table_name + str(self.data_size)
+        table_name = self.table_name #+ str(self.data_size)
         counts_list = []
 
         for cond in self.cond_list:
@@ -243,15 +243,16 @@ class Query:
 
             # get all the counts for each predicate
             self.domain_hist = self.get_cond_counts()
+            print(self.domain_hist)
 
             # for i in range(0, len(self.domain_hist)):
             #     print(i, "\t", self.domain_hist[i])
 
-            if self.index.__name__ in ['qw_1', 'qi_3', 'qt_1', 'qw_4', 'qi_2', 'qt_3']:  # 1D/2D histogram
+            if self.index.__name__ in ['qw_1', 'qi_3', 'qt_1', 'qw_4', 'qi_2', 'qt_3', 'test_age']:  # 1D/2D histogram
                 is_hist = True
             else:
                 is_hist = False
-                assert self.index.__name__ in ['qw_2', 'qw_3', 'qi_1', 'qi_4']  # 1D prefix
+                #assert self.index.__name__ in ['qw_2', 'qw_3', 'qi_1', 'qi_4']  # 1D prefix
 
             if is_hist:
                 # for histogram query
